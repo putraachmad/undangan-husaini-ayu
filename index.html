@@ -8,7 +8,22 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <main class="page-shell">
+  <!-- Modal Undangan -->
+  <div id="invitationModal" class="invitation-modal">
+    <div class="modal-content">
+      <div class="modal-card">
+        <h1 class="modal-title">Undangan Spesial</h1>
+        <p class="modal-subtitle">Anda mendapatkan undangan eksklusif dari kami</p>
+        <div class="modal-hearts">💕 💕 💕</div>
+        <p class="modal-text">Klik tombol di bawah untuk membuka undangan</p>
+        <button class="btn-open-invitation" onclick="openInvitation()">
+          <i class="fas fa-heart"></i> Buka Undangan <i class="fas fa-heart"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <main class="page-shell" id="mainContent" style="opacity: 0; pointer-events: none;">
     <section class="hero">
       <div class="hero-card">
         <div class="hero-image">
@@ -112,6 +127,17 @@
     </section>
   </main>
   <script>
+    // Open invitation function
+    function openInvitation() {
+      const modal = document.getElementById('invitationModal');
+      const mainContent = document.getElementById('mainContent');
+      
+      modal.classList.add('hidden');
+      mainContent.style.opacity = '1';
+      mainContent.style.pointerEvents = 'auto';
+      mainContent.style.transition = 'opacity 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)';
+    }
+
     const countdownDate = new Date('June 11, 2026 10:00:00 GMT+0700').getTime();
 
     function updateCountdown() {
