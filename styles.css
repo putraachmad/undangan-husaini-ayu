@@ -151,6 +151,16 @@ body::before {
   animation: fadeInUp 0.8s ease-out 0.1s backwards;
 }
 
+.arabic-greeting {
+  margin: 0 auto 20px;
+  max-width: 760px;
+  font-family: "Segoe UI Historic", "Noto Naskh Arabic", serif;
+  font-size: 1.25rem;
+  color: var(--secondary);
+  letter-spacing: 0.05em;
+  direction: rtl;
+}
+
 .subtitle {
   margin: 0;
   color: var(--text-muted);
