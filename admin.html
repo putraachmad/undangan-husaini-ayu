@@ -109,8 +109,9 @@
   <script src="firebase-config.js"></script>
 
   <script>
-    // Admin Panel Password (ubah ke password yang lebih aman)
-    const ADMIN_PASSWORD = 'admin123';
+    // Admin Panel Password
+    // Ganti `ADMIN_PASSWORD` ini apabila Anda ingin menggunakan kata sandi lain.
+    const ADMIN_PASSWORD = 'Undangan2026@Admin!';
 
     // Check if already logged in
     function isAdminLoggedIn() {
@@ -173,7 +174,7 @@
           <td class="message-cell">${guest.message || '-'}</td>
           <td class="time-cell">${new Date(guest.timestamp).toLocaleString('id-ID')}</td>
           <td>
-            <button class="btn-delete" onclick="deleteGuestRow('${guest.id}')">
+            <button class="btn-delete" onclick="deleteGuestRow('${guest._key}')">
               <i class="fas fa-trash"></i>
             </button>
           </td>
@@ -227,7 +228,8 @@
       getAllGuests((guests) => {
         let csv = 'Nama,Email,WhatsApp,Status,Jumlah Tamu,Pesan,Waktu\n';
         guests.forEach(guest => {
-          csv += `"${guest.name}","${guest.email}","${guest.phone}","${guest.status}","${guest.guestCount}","${guest.message.replace(/"/g, '""')}","${guest.timestamp}"\n`;
+          const messageSafe = (guest.message || '').replace(/"/g, '""');
+          csv += `"${guest.name}","${guest.email}","${guest.phone}","${guest.status}","${guest.guestCount}","${messageSafe}","${guest.timestamp}"\n`;
         });
 
         const blob = new Blob([csv], { type: 'text/csv' });

@@ -95,7 +95,7 @@
           <div class="bank-info">
             <p class="bank-label">Bank BNI</p>
             <p class="bank-account" id="bankAccount">831723729</p>
-            <button class="btn-copy" onclick="copyToClipboard('bankAccount')">
+            <button class="btn-copy" onclick="copyToClipboard('bankAccount', this)">
               <i class="fas fa-copy"></i> Salin Nomor
             </button>
           </div>
@@ -196,16 +196,24 @@
     // Scroll indicator removed per user request
 
     // Copy to clipboard function
-    function copyToClipboard(elementId) {
+    function copyToClipboard(elementId, btn) {
       const element = document.getElementById(elementId);
-      const text = element.textContent;
+      if (!element) return;
+      const text = element.textContent || element.innerText || '';
       navigator.clipboard.writeText(text).then(() => {
-        const btn = event.target.closest('.btn-copy');
-        const originalText = btn.innerHTML;
-        btn.innerHTML = '<i class="fas fa-check"></i> Tersalin!';
-        setTimeout(() => {
-          btn.innerHTML = originalText;
-        }, 2000);
+        try {
+          const buttonEl = btn || document.querySelector('.btn-copy');
+          if (!buttonEl) return;
+          const originalText = buttonEl.innerHTML;
+          buttonEl.innerHTML = '<i class="fas fa-check"></i> Tersalin!';
+          setTimeout(() => {
+            buttonEl.innerHTML = originalText;
+          }, 2000);
+        } catch (e) {
+          console.warn('copyToClipboard:', e);
+        }
+      }).catch(err => {
+        console.error('Clipboard write failed', err);
       });
     }
 

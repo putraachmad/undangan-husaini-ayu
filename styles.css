@@ -1116,15 +1116,28 @@ body::before {
   padding: 16px;
   text-align: left;
   font-weight: 600;
+  color: white;
 }
 
 .guest-table td {
   padding: 14px 16px;
   border-bottom: 1px solid var(--border);
+  color: var(--text);
+}
+
+.guest-table tbody tr {
+  background: #ffffff;
+  color: var(--text);
+}
+
+.guest-table tbody tr.status-hadir,
+.guest-table tbody tr.status-tidak,
+.guest-table tbody tr.status-ragu {
+  background: #ffffff;
 }
 
 .guest-table tbody tr:hover {
-  background: rgba(102, 126, 234, 0.05);
+  background: rgba(102, 126, 234, 0.08);
 }
 
 .status-badge {

@@ -49,7 +49,9 @@ function getAllGuests(callback) {
   guestRef.on('value', (snapshot) => {
     const guests = [];
     snapshot.forEach((childSnapshot) => {
-      guests.push(childSnapshot.val());
+      const guest = childSnapshot.val();
+      guest._key = childSnapshot.key;
+      guests.push(guest);
     });
     callback(guests);
   });
