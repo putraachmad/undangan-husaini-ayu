@@ -8,7 +8,6 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <div class="scroll-indicator"></div>
   <main class="page-shell">
     <section class="hero">
       <div class="hero-card">
@@ -137,13 +136,7 @@
     const countdownInterval = setInterval(updateCountdown, 1000);
     updateCountdown();
 
-    // Scroll indicator
-    window.addEventListener('scroll', () => {
-      const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
-      const scrolled = window.scrollY;
-      const scrollPercent = scrollHeight > 0 ? (scrolled / scrollHeight) * 100 : 0;
-      document.querySelector('.scroll-indicator').style.width = scrollPercent + '%';
-    });
+    // Scroll indicator removed per user request
 
     // Copy to clipboard function
     function copyToClipboard(elementId) {

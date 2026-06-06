@@ -45,21 +45,7 @@ body::before {
   z-index: -1;
 }
 
-.scroll-indicator {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 4px;
-  background: linear-gradient(90deg, var(--primary), var(--accent-light));
-  width: 0%;
-  z-index: 1000;
-  animation: scrollIndicator 0.3s ease-out;
-}
 
-@keyframes scrollIndicator {
-  from { opacity: 1; }
-  to { opacity: 0.8; }
-}
 
 .page-shell {
   max-width: 1000px;
@@ -141,9 +127,13 @@ body::before {
 }
 
 .ampersand {
+  display: block;
+  margin: 0.2em auto;
   font-style: italic;
-  font-size: 0.9em;
-  opacity: 0.9;
+  font-size: 1.1em;
+  color: var(--accent);
+  opacity: 0.95;
+  -webkit-text-fill-color: currentColor;
 }
 
 .subtitle-wrapper {
