@@ -1,18 +1,24 @@
 // Firebase Configuration
-// TODO: Ganti dengan credentials Firebase Anda sendiri
+// Paste credentials dari Firebase Console (Project settings → Your apps)
+// Jika belum membuat Realtime Database, buat terlebih dahulu dan tambahkan databaseURL di bawah
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDemoKeyGantiBelakangan",
-  authDomain: "undangan-husaini-ayu.firebaseapp.com",
-  databaseURL: "https://undangan-husaini-ayu-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "undangan-husaini-ayu",
-  storageBucket: "undangan-husaini-ayu.appspot.com",
-  messagingSenderId: "123456789000",
-  appId: "1:123456789000:web:abcdef1234567890"
+  apiKey: "AIzaSyCaLUjIJah11qZhd-XHp1cxW0vzPaU4TWI",
+  authDomain: "undangan-husaini-ayu-20d1d.firebaseapp.com",
+  // Tambahkan databaseURL setelah membuat Realtime Database, contoh:
+  // databaseURL: "https://undangan-husaini-ayu-20d1d-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "undangan-husaini-ayu-20d1d",
+  storageBucket: "undangan-husaini-ayu-20d1d.firebasestorage.app",
+  messagingSenderId: "814687073558",
+  appId: "1:814687073558:web:3707417c17f80dfac84c37",
+  measurementId: "G-908YZQSG4E"
 };
 
-// Initialize Firebase
+// Initialize Firebase (compat)
 firebase.initializeApp(firebaseConfig);
+if (firebase.analytics) {
+  try { firebase.analytics(); } catch (e) { console.warn('Analytics init failed', e); }
+}
 
 // Get reference ke Realtime Database
 const database = firebase.database();
