@@ -3,8 +3,9 @@
 Situs undangan pernikahan statis ini dibuat untuk dijalankan di perangkat mobile dan desktop.
 
 ## Struktur File
-- `klik.html` - Landing page dengan modal invitation (halaman pembuka)
-- `index.html` - Dashboard undangan dengan detail acara (halaman utama)
+- `index.html` - Landing page dengan modal invitation (halaman pembuka, default GitHub Pages)
+- `invitation.html` - Dashboard undangan dengan detail acara (halaman utama setelah membuka undangan)
+- `klik.html` - Alternatif landing page yang juga mengarahkan ke `invitation.html`
 - `styles.css` - Styling untuk semua halaman
 - `couple-photo.jpg` - Foto pasangan
 

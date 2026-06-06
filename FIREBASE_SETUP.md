@@ -103,8 +103,8 @@ Semua file sudah siap untuk GitHub Pages:
 ## 🔗 URLs
 
 Setelah GitHub Pages aktif:
-- Landing Page: `https://username.github.io/undangan-husaini-ayu/klik.html`
-- Dashboard Undangan: `https://username.github.io/undangan-husaini-ayu/index.html`
+- Landing Page: `https://username.github.io/undangan-husaini-ayu/`
+- Dashboard Undangan: `https://username.github.io/undangan-husaini-ayu/invitation.html`
 - Admin Panel: `https://username.github.io/undangan-husaini-ayu/admin.html`
 
 ## ⚠️ Testing Mode vs Production

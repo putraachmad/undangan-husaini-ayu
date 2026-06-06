@@ -8,250 +8,27 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <main class="page-shell">
-    <section class="hero">
-      <div class="hero-card">
-        <div class="hero-image">
-          <div class="image-frame">
-            <img src="couple-photo.jpg" alt="Foto Husaini dan Diah" />
-          </div>
-        </div>
-        <div class="hero-text">
-          <p class="arabic-greeting" lang="ar" dir="rtl">ٱلسَّلَامُ عَلَيْكُمْ وَرَحْمَةُ ٱللَّٰهِ وَبَرَكَاتُهُ</p>
-          <div class="subtitle-wrapper">
-            <p class="subtitle">✨ Dengan memohon ridha Allah SWT, kami mengundang Anda ✨</p>
-          </div>
-          <h1 class="names-title">
-            <span class="name">Husaini</span>
-            <span class="ampersand">&amp;</span>
-            <span class="name">Diah</span>
-          </h1>
-          <p class="note">Bersama keluarga, kami mengharapkan Anda untuk hadir pada acara akad nikah dan syukuran kami.</p>
-          <div class="hearts-decoration">♥ ♥ ♥</div>
-        </div>
+  <!-- Modal Undangan -->
+  <div id="invitationModal" class="invitation-modal">
+    <div class="modal-content">
+      <div class="modal-card">
+        <h1 class="modal-title">Undangan Spesial</h1>
+        <p class="modal-subtitle">Anda mendapatkan undangan eksklusif dari kami</p>
+        <div class="modal-hearts">💕 💕 💕</div>
+        <p class="modal-text">Klik tombol di bawah untuk membuka undangan</p>
+        <button class="btn-open-invitation" onclick="openInvitation()">
+          <i class="fas fa-heart"></i> Buka Undangan <i class="fas fa-heart"></i>
+        </button>
       </div>
-    </section>
-
-    <section class="countdown-card">
-      <div class="card countdown-inner">
-        <h2>⏰ Hitung Mundur Hari Istimewa</h2>
-        <p>Waktu menghitung menjelang hari bahagia kami</p>
-        <div class="countdown-grid">
-          <div class="countdown-item">
-            <span id="days" class="countdown-number">0</span>
-            <small>Hari</small>
-          </div>
-          <div class="countdown-item">
-            <span id="hours" class="countdown-number">0</span>
-            <small>Jam</small>
-          </div>
-          <div class="countdown-item">
-            <span id="minutes" class="countdown-number">0</span>
-            <small>Menit</small>
-          </div>
-          <div class="countdown-item">
-            <span id="seconds" class="countdown-number">0</span>
-            <small>Detik</small>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="details">
-      <div class="card event-card">
-        <h2>📅 Detail Acara</h2>
-        <div class="info-grid">
-          <div class="info-item">
-            <div class="info-icon">📆</div>
-            <div class="info-content">
-              <h3>Hari &amp;, Tanggal Acara</h3>
-              <p>Kamis, 11 Juni 2026</p>
-            </div>
-          </div>
-          <div class="info-item">
-            <div class="info-icon">🕙</div>
-            <div class="info-content">
-              <h3>Waktu</h3>
-              <p>Pukul:10.00 WIB</p>
-            </div>
-          </div>
-        </div>
-        <div class="venue">
-          <div class="venue-header">
-            <span class="venue-icon">📍</span>
-            <h3>Tempat Acara</h3>
-          </div>
-          <p class="venue-text">Plosogenuk, Kec. Perak, Kabupaten Jombang, Jawa Timur 61461</p>
-          <a href="https://maps.app.goo.gl/PGPwPtX8kVTMqMhY7?g_st=ac" target="_blank" rel="noreferrer" class="btn-map">
-            <i class="fas fa-map-marker-alt"></i> Lihat di Google Maps
-          </a>
-        </div>
-      </div>
-
-      <div class="card donation-card">
-        <h2>💝 Buwuh Online</h2>
-        <p class="donation-desc">Doa restu anda adalah hadiah terbesar bagi kami. Jika ingin mengirimkan buwuh online:</p>
-        <div class="donation-note">
-          <div class="bank-info">
-            <p class="bank-label">Bank BNI</p>
-            <p class="bank-account" id="bankAccount">831723729</p>
-            <button class="btn-copy" onclick="copyToClipboard('bankAccount', this)">
-              <i class="fas fa-copy"></i> Salin Nomor
-            </button>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="rsvp-card">
-      <div class="card">
-        <h2>📝 RSVP Kehadiran</h2>
-        <p class="rsvp-desc">Mohon konfirmasi kehadiran Anda sebelum tanggal 8 Juni 2026</p>
-        <form id="rsvpForm" class="rsvp-form">
-          <div class="form-group">
-            <label for="guestName">Nama Lengkap *</label>
-            <input type="text" id="guestName" name="guestName" placeholder="Masukkan nama Anda" required />
-          </div>
-
-          <div class="form-group">
-            <label for="guestEmail">Email *</label>
-            <input type="email" id="guestEmail" name="guestEmail" placeholder="contoh@email.com" required />
-          </div>
-
-          <div class="form-group">
-            <label for="guestPhone">Nomor WhatsApp *</label>
-            <input type="tel" id="guestPhone" name="guestPhone" placeholder="62812345678" required />
-          </div>
-
-          <div class="form-group">
-            <label for="attendanceStatus">Status Kehadiran *</label>
-            <select id="attendanceStatus" name="attendanceStatus" required>
-              <option value="">-- Pilih Status --</option>
-              <option value="hadir">Insya Allah Hadir</option>
-              <option value="tidak">Tidak Bisa Hadir</option>
-              <option value="ragu">Masih Ragu</option>
-            </select>
-          </div>
-
-          <div class="form-group">
-            <label for="guestCount">Jumlah Tamu *</label>
-            <input type="number" id="guestCount" name="guestCount" min="1" max="5" value="1" required />
-          </div>
-
-          <div class="form-group">
-            <label for="guestMessage">Pesan &amp; Doa (Opsional)</label>
-            <textarea id="guestMessage" name="guestMessage" placeholder="Tulis pesan atau doa Anda..." rows="4"></textarea>
-          </div>
-
-          <button type="submit" class="btn-submit">
-            <i class="fas fa-paper-plane"></i> Kirim RSVP
-          </button>
-          <p id="formMessage" class="form-message"></p>
-        </form>
-      </div>
-    </section>
-
-    <section class="footer-card">
-      <div class="footer-content">
-        <p class="footer-text">Semoga pertemuan ini menjadi berkah dari Allah SWT.<br/>Kehadiran dan doa Anda merupakan hadiah terindah bagi kami.</p>
-        <p class="signature">💕 Husaini &amp; Diah 💕</p>
-        <p class="footer-date">11 Juni 2026</p>
-        <p class="footer-admin"><a href="admin.html" style="color: var(--primary); text-decoration: none; font-size: 0.85rem;">Admin Panel</a></p>
-      </div>
-    </section>
-  </main>
-
-  <!-- Firebase (compat) SDK -->
-  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-analytics-compat.js"></script>
-  <script src="firebase-config.js"></script>
+    </div>
+  </div>
 
   <script>
-    // Firebase initialization & RSVP form handler
-    const countdownDate = new Date('June 11, 2026 10:00:00 GMT+0700').getTime();
-
-    function updateCountdown() {
-      const now = new Date().getTime();
-      const distance = countdownDate - now;
-      if (distance < 0) {
-        document.querySelector('.countdown-inner').innerHTML = '<h2>Hari H telah tiba!</h2><p>Terima kasih atas doanya.</p>';
-        clearInterval(countdownInterval);
-        return;
-      }
-      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-      document.getElementById('days').textContent = days;
-      document.getElementById('hours').textContent = String(hours).padStart(2, '0');
-      document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
-      document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+    // Open invitation function
+    function openInvitation() {
+      // Redirect ke halaman undangan utama setelah klik button
+      window.location.href = 'invitation.html';
     }
-
-    const countdownInterval = setInterval(updateCountdown, 1000);
-    updateCountdown();
-
-    // Scroll indicator removed per user request
-
-    // Copy to clipboard function
-    function copyToClipboard(elementId, btn) {
-      const element = document.getElementById(elementId);
-      if (!element) return;
-      const text = element.textContent || element.innerText || '';
-      navigator.clipboard.writeText(text).then(() => {
-        try {
-          const buttonEl = btn || document.querySelector('.btn-copy');
-          if (!buttonEl) return;
-          const originalText = buttonEl.innerHTML;
-          buttonEl.innerHTML = '<i class="fas fa-check"></i> Tersalin!';
-          setTimeout(() => {
-            buttonEl.innerHTML = originalText;
-          }, 2000);
-        } catch (e) {
-          console.warn('copyToClipboard:', e);
-        }
-      }).catch(err => {
-        console.error('Clipboard write failed', err);
-      });
-    }
-
-    // RSVP Form Handler
-    const rsvpForm = document.getElementById('rsvpForm');
-    if (rsvpForm) {
-      rsvpForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        const formData = {
-          guestName: document.getElementById('guestName').value,
-          guestEmail: document.getElementById('guestEmail').value,
-          guestPhone: document.getElementById('guestPhone').value,
-          attendanceStatus: document.getElementById('attendanceStatus').value,
-          guestCount: document.getElementById('guestCount').value,
-          guestMessage: document.getElementById('guestMessage').value
-        };
-
-        const messageEl = document.getElementById('formMessage');
-        messageEl.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Mengirim...';
-        messageEl.style.color = '#d4af37';
-
-        submitRSVP(formData).then(() => {
-          messageEl.innerHTML = '<i class="fas fa-check-circle"></i> Terima kasih! RSVP Anda telah diterima.';
-          messageEl.style.color = '#4CAF50';
-          rsvpForm.reset();
-          setTimeout(() => {
-            messageEl.innerHTML = '';
-          }, 5000);
-        }).catch((error) => {
-          messageEl.innerHTML = '<i class="fas fa-exclamation-circle"></i> Terjadi kesalahan. Coba lagi.';
-          messageEl.style.color = '#f44336';
-          console.error('Error:', error);
-        });
-      });
-    }
-
-    // Reveal-on-scroll removed to keep sections visible when navigating
   </script>
 </body>
 </html>
