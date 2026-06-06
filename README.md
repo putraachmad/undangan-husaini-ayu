@@ -4,7 +4,7 @@ Situs undangan pernikahan statis ini dibuat untuk dijalankan di perangkat mobile
 
 ## Konten
 - Nama pasangan: Husaini dan Ayu
-- Tanggal: 10 Juni 2026
+- Tanggal: 11 Juni 2026
 - Waktu: 10.00 WIB
 - Lokasi: Plosogenuk, Kec. Perak, Kabupaten Jombang, Jawa Timur 61461
 - Tautan peta: https://maps.app.goo.gl/PGPwPtX8kVTMqMhY7?g_st=ac
