@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Panel - Undangan Pernikahan</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- Login Modal -->
+  <div id="loginModal" class="admin-login-modal">
+    <div class="login-content">
+      <div class="login-card">
+        <h1 class="login-title">Admin Panel</h1>
+        <p class="login-subtitle">Masukkan password untuk akses dashboard</p>
+        <form id="loginForm" class="login-form">
+          <div class="form-group">
+            <input type="password" id="adminPassword" name="adminPassword" placeholder="Password Admin" required autofocus />
+          </div>
+          <button type="submit" class="btn-login">Login</button>
+          <p id="loginMessage" class="login-message"></p>
+        </form>
+        <p class="login-back"><a href="index.html">← Kembali ke Undangan</a></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Admin Dashboard -->
+  <div id="adminDashboard" class="admin-dashboard" style="display: none;">
+    <header class="admin-header">
+      <div class="admin-header-content">
+        <h1>Dashboard Admin</h1>
+        <button onclick="logoutAdmin()" class="btn-logout">
+          <i class="fas fa-sign-out-alt"></i> Logout
+        </button>
+      </div>
+    </header>
+
+    <main class="admin-main">
+      <div class="admin-container">
+        <!-- Stats -->
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-value" id="totalGuests">0</div>
+            <div class="stat-label">Total RSVP</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value" id="guestAttending">0</div>
+            <div class="stat-label">Akan Hadir</div>
+            <div class="stat-color" style="background: #4CAF50;"></div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value" id="guestNotAttending">0</div>
+            <div class="stat-label">Tidak Hadir</div>
+            <div class="stat-color" style="background: #f44336;"></div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value" id="guestUnsure">0</div>
+            <div class="stat-label">Masih Ragu</div>
+            <div class="stat-color" style="background: #FF9800;"></div>
+          </div>
+        </div>
+
+        <!-- Filters -->
+        <div class="filter-section">
+          <button class="filter-btn active" data-filter="all">Semua</button>
+          <button class="filter-btn" data-filter="hadir">Akan Hadir</button>
+          <button class="filter-btn" data-filter="tidak">Tidak Hadir</button>
+          <button class="filter-btn" data-filter="ragu">Masih Ragu</button>
+          <button class="btn-export">
+            <i class="fas fa-download"></i> Export CSV
+          </button>
+        </div>
+
+        <!-- Guest Table -->
+        <div class="table-wrapper">
+          <table class="guest-table">
+            <thead>
+              <tr>
+                <th>Nama</th>
+                <th>Email</th>
+                <th>WhatsApp</th>
+                <th>Status</th>
+                <th>Jumlah Tamu</th>
+                <th>Pesan</th>
+                <th>Waktu</th>
+                <th>Aksi</th>
+              </tr>
+            </thead>
+            <tbody id="guestTableBody">
+              <tr>
+                <td colspan="8" style="text-align: center; padding: 30px;">
+                  <i class="fas fa-spinner fa-spin" style="font-size: 24px; color: var(--primary);"></i>
+                  <p>Memuat data...</p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database.js"></script>
+  <script src="firebase-config.js"></script>
+
+  <script>
+    // Admin Panel Password (ubah ke password yang lebih aman)
+    const ADMIN_PASSWORD = 'admin123';
+
+    // Check if already logged in
+    function isAdminLoggedIn() {
+      return sessionStorage.getItem('adminLoggedIn') === 'true';
+    }
+
+    // Login handler
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const password = document.getElementById('adminPassword').value;
+      const messageEl = document.getElementById('loginMessage');
+
+      if (password === ADMIN_PASSWORD) {
+        sessionStorage.setItem('adminLoggedIn', 'true');
+        document.getElementById('loginModal').style.display = 'none';
+        document.getElementById('adminDashboard').style.display = 'block';
+        loadGuestData();
+      } else {
+        messageEl.innerHTML = '<i class="fas fa-exclamation-circle"></i> Password salah!';
+        messageEl.style.color = '#f44336';
+      }
+    });
+
+    // Logout handler
+    function logoutAdmin() {
+      sessionStorage.removeItem('adminLoggedIn');
+      document.getElementById('loginModal').style.display = 'flex';
+      document.getElementById('adminDashboard').style.display = 'none';
+      document.getElementById('loginForm').reset();
+    }
+
+    // Load guest data
+    function loadGuestData() {
+      getAllGuests((guests) => {
+        displayGuests(guests);
+        updateStats(guests);
+      });
+    }
+
+    // Display guests in table
+    function displayGuests(guests) {
+      const tbody = document.getElementById('guestTableBody');
+      
+      if (guests.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="8" style="text-align: center; padding: 30px;">Belum ada RSVP</td></tr>';
+        return;
+      }
+
+      tbody.innerHTML = guests.map((guest) => `
+        <tr class="guest-row status-${guest.status}">
+          <td>${guest.name}</td>
+          <td>${guest.email}</td>
+          <td><a href="https://wa.me/${guest.phone}" target="_blank">${guest.phone}</a></td>
+          <td>
+            <span class="status-badge status-${guest.status}">
+              ${guest.status === 'hadir' ? '✓ Hadir' : guest.status === 'tidak' ? '✗ Tidak' : '? Ragu'}
+            </span>
+          </td>
+          <td>${guest.guestCount} org</td>
+          <td class="message-cell">${guest.message || '-'}</td>
+          <td class="time-cell">${new Date(guest.timestamp).toLocaleString('id-ID')}</td>
+          <td>
+            <button class="btn-delete" onclick="deleteGuestRow('${guest.id}')">
+              <i class="fas fa-trash"></i>
+            </button>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    // Update statistics
+    function updateStats(guests) {
+      const total = guests.length;
+      const hadir = guests.filter(g => g.status === 'hadir').length;
+      const tidak = guests.filter(g => g.status === 'tidak').length;
+      const ragu = guests.filter(g => g.status === 'ragu').length;
+
+      document.getElementById('totalGuests').textContent = total;
+      document.getElementById('guestAttending').textContent = hadir;
+      document.getElementById('guestNotAttending').textContent = tidak;
+      document.getElementById('guestUnsure').textContent = ragu;
+    }
+
+    // Delete guest
+    function deleteGuestRow(guestId) {
+      if (confirm('Yakin ingin menghapus RSVP ini?')) {
+        deleteGuest(guestId).then(() => {
+          loadGuestData();
+        });
+      }
+    }
+
+    // Filter buttons
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        
+        const filter = this.dataset.filter;
+        const rows = document.querySelectorAll('.guest-row');
+        
+        rows.forEach(row => {
+          if (filter === 'all') {
+            row.style.display = '';
+          } else {
+            row.style.display = row.classList.contains(`status-${filter}`) ? '' : 'none';
+          }
+        });
+      });
+    });
+
+    // Export CSV
+    document.querySelector('.btn-export').addEventListener('click', function() {
+      getAllGuests((guests) => {
+        let csv = 'Nama,Email,WhatsApp,Status,Jumlah Tamu,Pesan,Waktu\n';
+        guests.forEach(guest => {
+          csv += `"${guest.name}","${guest.email}","${guest.phone}","${guest.status}","${guest.guestCount}","${guest.message.replace(/"/g, '""')}","${guest.timestamp}"\n`;
+        });
+
+        const blob = new Blob([csv], { type: 'text/csv' });
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `rsvp-undangan-${new Date().toISOString().split('T')[0]}.csv`;
+        a.click();
+      });
+    });
+
+    // Initialize
+    if (isAdminLoggedIn()) {
+      document.getElementById('loginModal').style.display = 'none';
+      document.getElementById('adminDashboard').style.display = 'block';
+      loadGuestData();
+    } else {
+      document.getElementById('adminPassword').focus();
+    }
+  </script>
+</body>
+</html>

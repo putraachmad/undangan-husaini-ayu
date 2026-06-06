@@ -103,15 +103,71 @@
       </div>
     </section>
 
+    <section class="rsvp-card">
+      <div class="card">
+        <h2>📝 RSVP Kehadiran</h2>
+        <p class="rsvp-desc">Mohon konfirmasi kehadiran Anda sebelum tanggal 8 Juni 2026</p>
+        <form id="rsvpForm" class="rsvp-form">
+          <div class="form-group">
+            <label for="guestName">Nama Lengkap *</label>
+            <input type="text" id="guestName" name="guestName" placeholder="Masukkan nama Anda" required />
+          </div>
+
+          <div class="form-group">
+            <label for="guestEmail">Email *</label>
+            <input type="email" id="guestEmail" name="guestEmail" placeholder="contoh@email.com" required />
+          </div>
+
+          <div class="form-group">
+            <label for="guestPhone">Nomor WhatsApp *</label>
+            <input type="tel" id="guestPhone" name="guestPhone" placeholder="62812345678" required />
+          </div>
+
+          <div class="form-group">
+            <label for="attendanceStatus">Status Kehadiran *</label>
+            <select id="attendanceStatus" name="attendanceStatus" required>
+              <option value="">-- Pilih Status --</option>
+              <option value="hadir">Insya Allah Hadir</option>
+              <option value="tidak">Tidak Bisa Hadir</option>
+              <option value="ragu">Masih Ragu</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="guestCount">Jumlah Tamu *</label>
+            <input type="number" id="guestCount" name="guestCount" min="1" max="5" value="1" required />
+          </div>
+
+          <div class="form-group">
+            <label for="guestMessage">Pesan &amp; Doa (Opsional)</label>
+            <textarea id="guestMessage" name="guestMessage" placeholder="Tulis pesan atau doa Anda..." rows="4"></textarea>
+          </div>
+
+          <button type="submit" class="btn-submit">
+            <i class="fas fa-paper-plane"></i> Kirim RSVP
+          </button>
+          <p id="formMessage" class="form-message"></p>
+        </form>
+      </div>
+    </section>
+
     <section class="footer-card">
       <div class="footer-content">
         <p class="footer-text">Semoga pertemuan ini menjadi berkah dari Allah SWT.<br/>Kehadiran dan doa Anda merupakan hadiah terindah bagi kami.</p>
         <p class="signature">💕 Husaini &amp; Diah 💕</p>
         <p class="footer-date">11 Juni 2026</p>
+        <p class="footer-admin"><a href="admin.html" style="color: var(--primary); text-decoration: none; font-size: 0.85rem;">Admin Panel</a></p>
       </div>
     </section>
   </main>
+
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database.js"></script>
+  <script src="firebase-config.js"></script>
+
   <script>
+    // Firebase initialization & RSVP form handler
     const countdownDate = new Date('June 11, 2026 10:00:00 GMT+0700').getTime();
 
     function updateCountdown() {
@@ -149,6 +205,40 @@
         setTimeout(() => {
           btn.innerHTML = originalText;
         }, 2000);
+      });
+    }
+
+    // RSVP Form Handler
+    const rsvpForm = document.getElementById('rsvpForm');
+    if (rsvpForm) {
+      rsvpForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const formData = {
+          guestName: document.getElementById('guestName').value,
+          guestEmail: document.getElementById('guestEmail').value,
+          guestPhone: document.getElementById('guestPhone').value,
+          attendanceStatus: document.getElementById('attendanceStatus').value,
+          guestCount: document.getElementById('guestCount').value,
+          guestMessage: document.getElementById('guestMessage').value
+        };
+
+        const messageEl = document.getElementById('formMessage');
+        messageEl.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Mengirim...';
+        messageEl.style.color = '#d4af37';
+
+        submitRSVP(formData).then(() => {
+          messageEl.innerHTML = '<i class="fas fa-check-circle"></i> Terima kasih! RSVP Anda telah diterima.';
+          messageEl.style.color = '#4CAF50';
+          rsvpForm.reset();
+          setTimeout(() => {
+            messageEl.innerHTML = '';
+          }, 5000);
+        }).catch((error) => {
+          messageEl.innerHTML = '<i class="fas fa-exclamation-circle"></i> Terjadi kesalahan. Coba lagi.';
+          messageEl.style.color = '#f44336';
+          console.error('Error:', error);
+        });
       });
     }
 
