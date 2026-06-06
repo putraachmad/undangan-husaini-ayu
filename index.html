@@ -92,9 +92,13 @@
         <h2>💝 Sumbangan Online</h2>
         <p class="donation-desc">Doa restu Anda adalah hadiah terbesar bagi kami. Jika ingin mengirimkan sumbangan:</p>
         <div class="donation-note">
-          <a href="https://example.com/sumbangan" target="_blank" rel="noreferrer" class="btn-donation">
-            <i class="fas fa-money-bill-wave"></i> Klik untuk Sumbangan
-          </a>
+          <div class="bank-info">
+            <p class="bank-label">Bank BNI</p>
+            <p class="bank-account" id="bankAccount">831723729</p>
+            <button class="btn-copy" onclick="copyToClipboard('bankAccount')">
+              <i class="fas fa-copy"></i> Salin Nomor
+            </button>
+          </div>
         </div>
       </div>
     </section>
@@ -139,6 +143,20 @@
       const scrollPercent = scrollHeight > 0 ? (scrolled / scrollHeight) * 100 : 0;
       document.querySelector('.scroll-indicator').style.width = scrollPercent + '%';
     });
+
+    // Copy to clipboard function
+    function copyToClipboard(elementId) {
+      const element = document.getElementById(elementId);
+      const text = element.textContent;
+      navigator.clipboard.writeText(text).then(() => {
+        const btn = event.target.closest('.btn-copy');
+        const originalText = btn.innerHTML;
+        btn.innerHTML = '<i class="fas fa-check"></i> Tersalin!';
+        setTimeout(() => {
+          btn.innerHTML = originalText;
+        }, 2000);
+      });
+    }
   </script>
 </body>
 </html>
