@@ -152,20 +152,7 @@
       });
     }
 
-    // Reveal-on-scroll using IntersectionObserver
-    (function() {
-      const reveals = document.querySelectorAll('.reveal');
-      if (!('IntersectionObserver' in window) || reveals.length === 0) return;
-      const observer = new IntersectionObserver((entries, obs) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('show');
-            obs.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.12 });
-      reveals.forEach(el => observer.observe(el));
-    })();
+    // Reveal-on-scroll removed to keep sections visible when navigating
   </script>
 </body>
 </html>

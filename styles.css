@@ -201,31 +201,25 @@ body::before {
   50% { opacity: 0.6; transform: scale(1.1); }
 }
 
-/* Reveal on scroll */
+/* Reveal on scroll removed: keep content visible to avoid disappearing when navigating */
 .reveal {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
-  will-change: opacity, transform;
-}
-
-.reveal.show {
-  opacity: 1;
-  transform: translateY(0);
+  opacity: 1 !important;
+  transform: none !important;
+  transition: none !important;
 }
 
 /* ===== COUNTDOWN SECTION ===== */
 .countdown-card {
-  margin-top: 60px;
+  margin-top: 20px;
   animation: fadeInUp 0.8s ease-out 0.4s backwards;
 }
 
 .countdown-inner {
   text-align: center;
-  padding: 40px 30px;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.8) 0%, rgba(255, 240, 245, 0.8) 100%);
-  backdrop-filter: blur(10px);
-  border: 2px solid rgba(212, 175, 55, 0.3);
+  padding: 24px 20px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 240, 245, 0.95) 100%);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(212, 175, 55, 0.18);
 }
 
 .countdown-inner h2 {
