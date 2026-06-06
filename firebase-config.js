@@ -5,8 +5,8 @@
 const firebaseConfig = {
   apiKey: "AIzaSyCaLUjIJah11qZhd-XHp1cxW0vzPaU4TWI",
   authDomain: "undangan-husaini-ayu-20d1d.firebaseapp.com",
-  // Tambahkan databaseURL setelah membuat Realtime Database, contoh:
-  // databaseURL: "https://undangan-husaini-ayu-20d1d-default-rtdb.asia-southeast1.firebasedatabase.app",
+  // Realtime Database URL (tambahkan seperti baris di bawah)
+  databaseURL: "https://undangan-husaini-ayu-20d1d-default-rtdb.asia-southeast1.firebasedatabase.app",
   projectId: "undangan-husaini-ayu-20d1d",
   storageBucket: "undangan-husaini-ayu-20d1d.firebasestorage.app",
   messagingSenderId: "814687073558",
