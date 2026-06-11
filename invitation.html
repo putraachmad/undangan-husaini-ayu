@@ -26,7 +26,7 @@
             <span class="ampersand">&amp;</span>
             <span class="name">Diah</span>
           </h1>
-          <p class="note">Bersama keluarga, kami mengharapkan Anda untuk hadir pada acara akad nikah dan syukuran kami.</p>
+          <p class="note">Bersama keluarga, kami mengharapkan anda untuk hadir pada acara pernikahan dan syukuran kami.</p>
           <div class="hearts-decoration">♥ ♥ ♥</div>
         </div>
       </div>
@@ -65,14 +65,14 @@
             <div class="info-icon">📆</div>
             <div class="info-content">
               <h3>Hari &amp;, Tanggal Acara</h3>
-              <p>Kamis, 11 Juni 2026</p>
+              <p>Sabtu, 20 Juni 2026</p>
             </div>
           </div>
           <div class="info-item">
             <div class="info-icon">🕙</div>
             <div class="info-content">
               <h3>Waktu</h3>
-              <p>Pukul:10.00 WIB</p>
+              <p>Pukul: 09.00 WIB</p>
             </div>
           </div>
         </div>
@@ -81,8 +81,8 @@
             <span class="venue-icon">📍</span>
             <h3>Tempat Acara</h3>
           </div>
-          <p class="venue-text">Plosogenuk, Kec. Perak, Kabupaten Jombang, Jawa Timur 61461</p>
-          <a href="https://maps.app.goo.gl/PGPwPtX8kVTMqMhY7?g_st=ac" target="_blank" rel="noreferrer" class="btn-map">
+          <p class="venue-text">Carang Puspo, Carang Rejo, Kec. Kesamben, Kabupaten Jombang, Jawa Timur 61484</p>
+          <a href="https://maps.app.goo.gl/yvXJ1367kqVj52bR6?g_st=ac" target="_blank" rel="noreferrer" class="btn-map">
             <i class="fas fa-map-marker-alt"></i> Lihat di Google Maps
           </a>
         </div>
@@ -106,16 +106,11 @@
     <section class="rsvp-card">
       <div class="card">
         <h2>📝 RSVP Kehadiran</h2>
-        <p class="rsvp-desc">Mohon konfirmasi kehadiran Anda sebelum tanggal 8 Juni 2026</p>
+        <p class="rsvp-desc">Mohon konfirmasi kehadiran Anda sebelum tanggal 18 Juni 2026</p>
         <form id="rsvpForm" class="rsvp-form">
           <div class="form-group">
             <label for="guestName">Nama Lengkap *</label>
             <input type="text" id="guestName" name="guestName" placeholder="Masukkan nama Anda" required />
-          </div>
-
-          <div class="form-group">
-            <label for="guestEmail">Email *</label>
-            <input type="email" id="guestEmail" name="guestEmail" placeholder="contoh@email.com" required />
           </div>
 
           <div class="form-group">
@@ -138,7 +133,7 @@
             <input type="number" id="guestCount" name="guestCount" min="1" max="5" value="1" required />
           </div>
 
-          <div class="form-group">
+          <div class="form-group full-width">
             <label for="guestMessage">Pesan &amp; Doa (Opsional)</label>
             <textarea id="guestMessage" name="guestMessage" placeholder="Tulis pesan atau doa Anda..." rows="4"></textarea>
           </div>
@@ -155,8 +150,8 @@
       <div class="footer-content">
         <p class="footer-text">Semoga pertemuan ini menjadi berkah dari Allah SWT.<br/>Kehadiran dan doa Anda merupakan hadiah terindah bagi kami.</p>
         <p class="signature">💕 Husaini &amp; Diah 💕</p>
-        <p class="footer-date">11 Juni 2026</p>
-        <p class="footer-admin"><a href="admin.html" style="color: var(--primary); text-decoration: none; font-size: 0.85rem;">Admin Panel</a></p>
+        <p class="footer-date">20 Juni 2026</p>
+        <p class="footer-admin"><a href="admin.html" class="footer-admin-link">Admin Panel</a></p>
       </div>
     </section>
   </main>
@@ -169,7 +164,7 @@
 
   <script>
     // Firebase initialization & RSVP form handler
-    const countdownDate = new Date('June 11, 2026 10:00:00 GMT+0700').getTime();
+    const countdownDate = new Date('June 20, 2026 09:00:00 GMT+0700').getTime();
 
     function updateCountdown() {
       const now = new Date().getTime();
@@ -225,7 +220,6 @@
         
         const formData = {
           guestName: document.getElementById('guestName').value,
-          guestEmail: document.getElementById('guestEmail').value,
           guestPhone: document.getElementById('guestPhone').value,
           attendanceStatus: document.getElementById('attendanceStatus').value,
           guestCount: document.getElementById('guestCount').value,

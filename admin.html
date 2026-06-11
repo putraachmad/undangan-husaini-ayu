@@ -79,7 +79,6 @@
             <thead>
               <tr>
                 <th>Nama</th>
-                <th>Email</th>
                 <th>WhatsApp</th>
                 <th>Status</th>
                 <th>Jumlah Tamu</th>
@@ -90,9 +89,9 @@
             </thead>
             <tbody id="guestTableBody">
               <tr>
-                <td colspan="8" style="text-align: center; padding: 30px;">
-                  <i class="fas fa-spinner fa-spin" style="font-size: 24px; color: var(--primary);"></i>
-                  <p>Memuat data...</p>
+                <td colspan="7" style="text-align: center; padding: 40px;">
+                  <i class="fas fa-inbox" style="font-size: 32px; color: var(--primary); opacity: 0.5; margin-bottom: 12px; display: block;"></i>
+                  <p style="color: var(--text-muted); margin: 0;">Belum ada RSVP masuk</p>
                 </td>
               </tr>
             </tbody>
@@ -111,7 +110,7 @@
   <script>
     // Admin Panel Password
     // Ganti `ADMIN_PASSWORD` ini apabila Anda ingin menggunakan kata sandi lain.
-    const ADMIN_PASSWORD = 'Undangan2026@Admin!';
+    const ADMIN_PASSWORD = 'husainidandiah';
 
     // Check if already logged in
     function isAdminLoggedIn() {
@@ -156,14 +155,13 @@
       const tbody = document.getElementById('guestTableBody');
       
       if (guests.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="8" style="text-align: center; padding: 30px;">Belum ada RSVP</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="7" style="text-align: center; padding: 30px;">Belum ada RSVP</td></tr>';
         return;
       }
 
       tbody.innerHTML = guests.map((guest) => `
         <tr class="guest-row status-${guest.status}">
           <td>${guest.name}</td>
-          <td>${guest.email}</td>
           <td><a href="https://wa.me/${guest.phone}" target="_blank">${guest.phone}</a></td>
           <td>
             <span class="status-badge status-${guest.status}">
@@ -226,10 +224,10 @@
     // Export CSV
     document.querySelector('.btn-export').addEventListener('click', function() {
       getAllGuests((guests) => {
-        let csv = 'Nama,Email,WhatsApp,Status,Jumlah Tamu,Pesan,Waktu\n';
+        let csv = 'Nama,WhatsApp,Status,Jumlah Tamu,Pesan,Waktu\n';
         guests.forEach(guest => {
           const messageSafe = (guest.message || '').replace(/"/g, '""');
-          csv += `"${guest.name}","${guest.email}","${guest.phone}","${guest.status}","${guest.guestCount}","${messageSafe}","${guest.timestamp}"\n`;
+          csv += `"${guest.name}","${guest.phone}","${guest.status}","${guest.guestCount}","${messageSafe}","${guest.timestamp}"\n`;
         });
 
         const blob = new Blob([csv], { type: 'text/csv' });

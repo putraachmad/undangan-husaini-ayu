@@ -33,7 +33,6 @@ function submitRSVP(formData) {
   const guestData = {
     id: guestId,
     name: formData.guestName,
-    email: formData.guestEmail,
     phone: formData.guestPhone,
     status: formData.attendanceStatus,
     guestCount: parseInt(formData.guestCount),
